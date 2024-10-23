@@ -12,9 +12,9 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        shell: bash
+    # defaults:
+    #   run:
+    #     shell: bash
 
     strategy:
       # Set fail-fast to false to ensure that feedback is delivered for all matrix combinations. Consider changing this to true when your workflow is stable.
@@ -80,6 +80,7 @@ jobs:
 
     - name: Prepare upload artifact
       id: prepare-upload-artifact
+      shell: bash
       run: |
         mkdir -p ${{ runner.temp }}/upload
         cp ${{ github.workspace }}/LICENSE ${{ runner.temp }}/upload
