@@ -80,16 +80,18 @@ jobs:
 
     - name: Prepare upload artifact
       id: prepare-upload-artifact
-      shell: bash
       run: |
         mkdir -p ${{ runner.temp }}/upload
         cp ${{ github.workspace }}/LICENSE ${{ runner.temp }}/upload
         cp ${{ github.workspace }}/README.md ${{ runner.temp }}/upload
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          cp ${{ steps.strings.outputs.build-output-dir }}/windydns ${{ runner.temp }}/upload
-        elif [ "$RUNNER_OS" == "Windows" ]; then
-          cp ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }}/windydns.exe ${{ runner.temp }}/upload
-        fi
+        
+    - name: Copy Linux outputs
+      if: runner.os == 'Linux'
+      run: cp ${{ steps.strings.outputs.build-output-dir }}/windydns ${{ runner.temp }}/upload
+      
+    - name: Copy Windows outputs
+      if: runner.os == 'Windows'
+      run: cp ${{ steps.strings.outputs.build-output-dir }}\${{ matrix.build_type }}\windydns.exe ${{ runner.temp }}\upload
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
