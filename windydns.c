@@ -16,7 +16,10 @@
 
 #include <string.h>
 #include <stdint.h>
+
+#if defined _MSC_VER || defined __MINGW32__
 typedef int socklen_t;
+#endif
 
 int main(int argc, char **argv){
     // Stores number of bytes received (packet size)
