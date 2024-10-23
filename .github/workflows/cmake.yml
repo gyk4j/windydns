@@ -81,8 +81,11 @@ jobs:
         mkdir -p ${{ runner.temp }}/upload
         cp ${{ github.workspace }}/LICENSE ${{ runner.temp }}/upload
         cp ${{ github.workspace }}/README.md ${{ runner.temp }}/upload
-        test -f ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }}/windydns && cp ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }}/windydns ${{ runner.temp }}/upload
-        test -f ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }}/windydns.exe && cp ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }}/windydns.exe ${{ runner.temp }}/upload
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          cp ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }}/windydns ${{ runner.temp }}/upload
+        elif [ "$RUNNER_OS" == "Windows" ]; then
+          cp ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }}/windydns.exe ${{ runner.temp }}/upload
+        fi
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
