@@ -1,3 +1,5 @@
+[![CMake](https://github.com/gyk4j/windydns/actions/workflows/cmake.yml/badge.svg)](https://github.com/gyk4j/windydns/actions/workflows/cmake.yml)
+
 # WindyDNS
 *WindyDNS* is a Windows console DNS server that always reply to any DNS queries 
 with a user-specified IP address. It is usually used for simulating a multiple 
