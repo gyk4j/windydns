@@ -1,6 +1,6 @@
 # This starter workflow is for a CMake project running on multiple platforms. There is a different starter workflow if you just want a single platform.
 # See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-single-platform.yml
-name: CMake on multiple platforms
+name: CMake
 
 on:
   workflow_dispatch:
@@ -81,8 +81,8 @@ jobs:
         mkdir -p ${{ runner.temp }}/upload
         cp ${{ github.workspace }}/LICENSE ${{ runner.temp }}/upload
         cp ${{ github.workspace }}/README.md ${{ runner.temp }}/upload
-        cp ${{ steps.strings.outputs.build-output-dir }}/windydns* ${{ runner.temp }}/upload
-        test -e ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }} && cp ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }}/windydns* ${{ runner.temp }}/upload
+        test -e ${{ steps.strings.outputs.build-output-dir }}/windydns && cp ${{ steps.strings.outputs.build-output-dir }}/windydns ${{ runner.temp }}/upload
+        test -e ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }}/windydns.exe && cp ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }}/windydns.exe ${{ runner.temp }}/upload
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
